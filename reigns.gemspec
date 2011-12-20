@@ -7,9 +7,9 @@ Gem::Specification.new do |s|
   s.version     = Reigns::VERSION
   s.authors     = ["Stuart Blair"]
   s.email       = ["stuart@5values.com"]
-  s.homepage    = ""
-  s.summary     = %q{TODO: Write a gem summary}
-  s.description = %q{TODO: Write a gem description}
+  s.homepage    = "https://github.com/stuartblair/reigns"
+  s.summary     = s.description
+  s.description = %q{Provides JNDI/Servlet/Spring abstractions for use in Integration testing of J2EE services through JRuby}
 
   s.rubyforge_project = "reigns"
 
@@ -18,7 +18,5 @@ Gem::Specification.new do |s|
   s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   s.require_paths = ["lib"]
 
-  # specify any dependencies here; for example:
-  # s.add_development_dependency "rspec"
-  # s.add_runtime_dependency "rest-client"
+  s.add_development_dependency "rspec"
 end
