@@ -8,8 +8,8 @@ Gem::Specification.new do |s|
   s.authors     = ["Stuart Blair"]
   s.email       = ["stuart@5values.com"]
   s.homepage    = "https://github.com/stuartblair/reigns"
-  s.summary     = s.description
   s.description = %q{Provides JNDI/Servlet/Spring abstractions for use in Integration testing of J2EE services through JRuby}
+  s.summary     = s.description
 
   s.rubyforge_project = "reigns"
 
