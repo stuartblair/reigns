@@ -10,7 +10,7 @@ module Reigns
       LightweightJNDIContextFactory.set_context(self)
     end
 
-    def lookup_object(name)
+    def lookup(name)
       @mappings[name]
     end
   end

@@ -12,7 +12,7 @@ module Reigns
       end
       
       it "should return the initial context configured with the mappings" do
-        @jndi_context.lookup_object('jndi_name').should eql 'service'
+        @jndi_context.lookup('jndi_name').should eql 'service'
       end
     end
   end
