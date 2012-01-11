@@ -1,9 +1,9 @@
 Given /^I have a spring mvc application context location of "([^"]*)"$/ do |context_location|
-  pending # express the regexp above with the code you wish you had
+  set_context_location(context_location)
 end
 
 Given /^the application will respond to get requests for the uri "([^"]*)"$/ do |uri|
-  pending # express the regexp above with the code you wish you had
+  # Because it will - see the reference folder 
 end
 
 When /^I (GET|PUT|POST|DELETE) "([^"]*)"$/ do |method, uri|
@@ -15,7 +15,7 @@ Then /^I recieve an HTTPResponse with a (\d+) code$/ do |response_code|
 end
 
 When /^I host the application$/ do
-  pending # express the regexp above with the code you wish you had
+  host_application
 end
 
 Then /^I receive an error message reporting that "([^"]*)" is an invalid application context$/ do |arg1|
