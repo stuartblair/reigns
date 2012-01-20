@@ -1,10 +1,11 @@
 module KnowsSpring
-  def set_context_location(context_location)
-    @context_location = context_location
+  def host_application(context_location)
+    @fake_dispatcher_servlet = ::Reigns::FakeDispatcherServlet.new(context_location)
   end
 
-  def host_application
-    @fake_dispatcher_servlet = FakeDispatcherServlet.new(context_location)
+  def send_request(method, uri)
+    @fake_dispatcher_servlet.send(method.downcase, uri)
   end
 end
+
 World(KnowsSpring)

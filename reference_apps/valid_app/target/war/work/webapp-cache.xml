@@ -18,6 +18,8 @@
           <string>WEB-INF/lib/spring-expression-3.0.5.RELEASE.jar</string>
           <string>WEB-INF/lib/spring-webmvc-3.0.5.RELEASE.jar</string>
           <string>WEB-INF/lib/spring-context-support-3.0.5.RELEASE.jar</string>
+          <string>WEB-INF/lib/spring-test-3.0.5.RELEASE.jar</string>
+          <string>WEB-INF/lib/tomcat-servlet-api-7.0.23.jar</string>
         </pathsSet>
       </path-set>
     </entry>
@@ -58,6 +60,30 @@
         <optional>false</optional>
       </dependency>
       <targetFileName>spring-webmvc-3.0.5.RELEASE.jar</targetFileName>
+    </org.apache.maven.plugin.war.util.DependencyInfo>
+    <org.apache.maven.plugin.war.util.DependencyInfo>
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-test</artifactId>
+        <version>3.0.5.RELEASE</version>
+        <type>jar</type>
+        <scope>compile</scope>
+        <exclusions/>
+        <optional>false</optional>
+      </dependency>
+      <targetFileName>spring-test-3.0.5.RELEASE.jar</targetFileName>
+    </org.apache.maven.plugin.war.util.DependencyInfo>
+    <org.apache.maven.plugin.war.util.DependencyInfo>
+      <dependency>
+        <groupId>org.apache.tomcat</groupId>
+        <artifactId>tomcat-servlet-api</artifactId>
+        <version>7.0.23</version>
+        <type>jar</type>
+        <scope>compile</scope>
+        <exclusions/>
+        <optional>false</optional>
+      </dependency>
+      <targetFileName>tomcat-servlet-api-7.0.23.jar</targetFileName>
     </org.apache.maven.plugin.war.util.DependencyInfo>
   </dependenciesInfo>
 </webapp-structure>

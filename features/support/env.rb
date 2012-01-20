@@ -1,5 +1,6 @@
+$LOAD_PATH.unshift(File.expand_path('../../../lib', __FILE__))
+$LOAD_PATH.unshift(File.expand_path('../../../reference_apps', __FILE__))
 require 'java'
-$CLASSPATH << File.join(File.dirname(__FILE__), 'reference_apps', 'valid_app', 'target', 'valid_app', 'WEB-INF', 'classes')
-Dir.glob("**/lib/*.jar") {|jar| $CLASSPATH << jar}
-
+require 'classpath'
+require 'reigns'
 java_import 'com._5values.dummy.controller.HelloController'
