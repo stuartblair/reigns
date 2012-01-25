@@ -22,5 +22,11 @@ module Reigns
       @servlet.service(request, response);
       return response
     end
+
+    def context
+      result = @servlet.getWebApplicationContext()
+      puts "caught web application context from the servlet as #{result}"
+      result
+    end
   end
 end
