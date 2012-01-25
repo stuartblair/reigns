@@ -16,17 +16,21 @@ module Reigns
       @servlet.init(config)
     end
 
-    def get(uri)
+    def service(method, uri)
       request = MockHttpServletRequest.new('GET', uri)
       response = MockHttpServletResponse.new
-      @servlet.service(request, response);
+      @servlet.service(request, response)
       return response
     end
 
     def context
-      result = @servlet.getWebApplicationContext()
-      puts "caught web application context from the servlet as #{result}"
-      result
+      @servlet.getWebApplicationContext()
+    end
+    
+    def method_missing(method, uri, *args, &block)
+      if (/get|put|post|delete/ =~ method.to_s)
+        send(:service, method, uri)
+      end
     end
   end
 end
