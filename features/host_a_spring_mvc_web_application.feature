@@ -3,8 +3,8 @@ Feature:Host a spring mvc web application
 Scenario Outline: Request routing
 Given I host a spring mvc application with context location of "WEB-INF/mvc-dispatcher-servlet.xml"
 And the application will respond to <Operation> requests for the uri <URI>
-And I <Operation> <URI>
-Then I recieve an HTTPResponse with a <Code> code
+When I <Operation> <URI>
+Then I receive an HTTPResponse with a <Code> code
 
 Examples:
 | Operation | URI    | Code |
@@ -13,9 +13,19 @@ Examples:
 | POST      | /hello | 200  |
 | DELETE    | /hello | 200  |
 
+Scenario: Content is routed from requests through controllers to responses
+Given I host a spring mvc application with context location of "WEB-INF/mvc-dispatcher-servlet.xml"
+When I POST a body to /echo containing form data:-
+| name    | value             |
+| user    | Bob               |
+| address | 15 Osprey Heights |
+Then I receive a response containing fields:-
+| name    | value             |
+| user    | Bob               |
+| address | 15 Osprey Heights |
 
 Scenario: Provide access to spring beans
 Given I host a spring mvc application with context location of "WEB-INF/mvc-dispatcher-servlet.xml"
 And the application contains a spring bean with the id "helloController" 
-And I request the bean "helloController"
+When I request the bean "helloController"
 Then I receive a non-nil object from my application context

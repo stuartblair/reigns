@@ -6,16 +6,8 @@ java_import 'org.springframework.mock.web.MockServletConfig'
 java_import 'org.springframework.mock.web.MockHttpServletRequest'
 java_import 'org.springframework.mock.web.MockHttpServletResponse'
 
-
 module Reigns
   class FakeDispatcherServlet
-    def initialize(context_location)
-      @servlet = DispatcherServlet.new
-      config = MockServletConfig.new("resources")
-      config.add_init_parameter("contextConfigLocation", context_location)
-      @servlet.init(config)
-    end
-
     def service(method, uri)
       request = MockHttpServletRequest.new('GET', uri)
       response = MockHttpServletResponse.new
@@ -27,6 +19,15 @@ module Reigns
       @servlet.getWebApplicationContext()
     end
     
+    private
+    
+    def initialize(context_location)
+      @servlet = DispatcherServlet.new
+      config = MockServletConfig.new("resources")
+      config.add_init_parameter("contextConfigLocation", context_location)
+      @servlet.init(config)
+    end
+
     def method_missing(method, uri, *args, &block)
       if (/get|put|post|delete/ =~ method.to_s)
         send(:service, method, uri)
