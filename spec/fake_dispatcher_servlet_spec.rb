@@ -25,6 +25,10 @@ module Reigns
           @fake_dispatcher_servlet.service(:get, "/goodbye").get_status.should eql 404
         end
       end
+
+      context "when receiving form data" do
+        pending
+      end
     end
     
     describe "message routing" do

@@ -24,7 +24,7 @@ When /^I (GET|PUT|POST|DELETE) (\S*)$/ do |method, uri|
 end
 
 When /^I POST a body to (\S+) containing form data:\-$/ do |uri, table|
-  @last_response = send_request(:POST, uri) do |content|
+  @last_response = send_request('POST', uri) do |content|
       content << URI.encode_www_form(uri)
       puts "Incidentally Stuart, here's what the body of the form looks like:'#{content}'"
   end
