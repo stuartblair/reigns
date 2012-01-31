@@ -1,5 +1,6 @@
 require 'spec_helper'
 java_import 'org.springframework.context.ApplicationContext'
+java_import 'org.springframework.mock.web.MockHttpServletRequest'
 
 module Reigns
   describe FakeDispatcherServlet do    
@@ -16,45 +17,52 @@ module Reigns
     describe "#service" do
       context "to a resource that exists" do        
         it "returns an HTTPResponse with a 200 code" do
-          @fake_dispatcher_servlet.service(:get, "/hello").get_status.should eql 200
+          @fake_dispatcher_servlet.service(MockHttpServletRequest.new('GET', "/hello")).get_status.should eql 200
         end
       end
       
       context "to a resource that doesn't exist" do
         it "returns an HTTPResponse with a 404 code" do
-          @fake_dispatcher_servlet.service(:get, "/goodbye").get_status.should eql 404
+          @fake_dispatcher_servlet.service(MockHttpServletRequest.new('GET', "/goodbye")).get_status.should eql 404
         end
       end
-
+      
       context "when receiving form data" do
-        pending
+        it "sets the form data in the request content" do
+          pending "until I decide what to do with the content and parameters"
+          request = MockHttpServletRequest.new('POST', "/echo")
+          request.should_receive(:setContent).with("Here's the content".to_java_bytes)
+          @fake_dispatcher_servlet.service(request) do |content|
+            content << "Here's the content"
+          end
+        end
       end
+      
+      describe "message routing" do
+        before(:each) do
+          @request = double(MockHttpServletRequest)
+        end
+        
+        it "routes get messages to #service" do
+          @fake_dispatcher_servlet.should_receive(:service).with(a_mock_http_servlet_request_with(:getMethod =>'GET', :getRequestURI =>"/a_uri"))
+          @fake_dispatcher_servlet.get("/a_uri")
+        end
+        
+        it "routes put messages to #service" do
+          @fake_dispatcher_servlet.should_receive(:service).with(a_mock_http_servlet_request_with(:getMethod =>'PUT', :getRequestURI =>"/a_uri"))
+          @fake_dispatcher_servlet.put("/a_uri")        
+        end
+        
+        it "routes post messages to #service" do
+          @fake_dispatcher_servlet.should_receive(:service).with(a_mock_http_servlet_request_with(:getMethod =>'POST', :getRequestURI =>"/a_uri"))
+          @fake_dispatcher_servlet.post("/a_uri")
+        end
+        
+        it "routes delete messages to #service" do
+          @fake_dispatcher_servlet.should_receive(:service).with(a_mock_http_servlet_request_with(:getMethod => 'DELETE', :getRequestURI => "/a_uri"))
+          @fake_dispatcher_servlet.delete("/a_uri")
+        end
+      end    
     end
-    
-    describe "message routing" do
-      before(:each) do
-        @fake_dispatcher_servlet.stub(:service)
-      end
-      
-      it "routes get messages to #service" do
-        @fake_dispatcher_servlet.should_receive(:service).with(:get, "/a_uri")
-        @fake_dispatcher_servlet.get("/a_uri")
-      end
-      
-      it "routes put messages to #service" do
-        @fake_dispatcher_servlet.should_receive(:service).with(:put, "/a_uri")
-        @fake_dispatcher_servlet.put("/a_uri")        
-      end
-      
-      it "routes post messages to #service" do
-        @fake_dispatcher_servlet.should_receive(:service).with(:post, "/a_uri")
-        @fake_dispatcher_servlet.post("/a_uri")
-      end
-      
-      it "routes delete messages to #service" do
-        @fake_dispatcher_servlet.should_receive(:service).with(:delete, "/a_uri")
-        @fake_dispatcher_servlet.delete("/a_uri")
-      end
-    end    
   end
 end

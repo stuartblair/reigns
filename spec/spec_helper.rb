@@ -26,3 +26,28 @@ RSpec::Matchers.define :implement do |interface|
   end
 end
 
+class MockHttpServletRequestMatcher
+  def initialize(expected_params)
+    @expected_params = expected_params
+  end
+  
+  def description
+    "a MockHttpServletRequest with #{@expected_params}"
+  end
+  
+  def ==(actual)
+    match = true
+    @expected_params.each do |key, value|
+      result = actual.send(key).to_s
+      if (result != value) 
+        match = false
+      end
+    end
+    match
+  end  
+end
+
+def a_mock_http_servlet_request_with(expected_params)
+  MockHttpServletRequestMatcher.new(expected_params)
+end
+

@@ -6,6 +6,7 @@
         <pathsSet class="linked-hash-set">
           <string>WEB-INF/mvc-dispatcher-servlet.xml</string>
           <string>WEB-INF/web.xml</string>
+          <string>WEB-INF/classes/com/_5values/dummy/controller/EchoController.class</string>
           <string>WEB-INF/classes/com/_5values/dummy/controller/HelloController.class</string>
           <string>WEB-INF/lib/spring-core-3.0.5.RELEASE.jar</string>
           <string>WEB-INF/lib/spring-asm-3.0.5.RELEASE.jar</string>

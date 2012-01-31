@@ -8,11 +8,11 @@ java_import 'org.springframework.mock.web.MockHttpServletResponse'
 
 module Reigns
   class FakeDispatcherServlet
-    def service(method, uri)
-      request = MockHttpServletRequest.new('GET', uri)
+    def service(request)
       response = MockHttpServletResponse.new
+      puts "Just about to submit a #{request.getMethod} to #{request.getRequestURI}"
       @servlet.service(request, response)
-      return response
+      response
     end
 
     def context
@@ -28,9 +28,10 @@ module Reigns
       @servlet.init(config)
     end
 
-    def method_missing(method, uri, *args, &block)
-      if (/get|put|post|delete/ =~ method.to_s)
-        send(:service, method, uri)
+    def method_missing(http_method, uri, *args, &block)
+      if (/get|put|post|delete/ =~ http_method.to_s.downcase)
+        request = MockHttpServletRequest.new(http_method.to_s.upcase, uri)
+        send(:service, request)
       end
     end
   end
