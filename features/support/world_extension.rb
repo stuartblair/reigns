@@ -3,6 +3,10 @@ module KnowsSpring
     @fake_dispatcher_servlet = ::Reigns::FakeDispatcherServlet.new(context_location)
   end
 
+  def dispatcher
+    @fake_dispatcher_servlet
+  end
+
   def send_request(method, uri)
     @fake_dispatcher_servlet.send(method.downcase, uri)
   end

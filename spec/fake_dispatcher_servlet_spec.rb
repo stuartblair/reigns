@@ -29,11 +29,10 @@ module Reigns
       
       context "when receiving form data" do
         it "sets the form data in the request content" do
-          pending "until I decide what to do with the content and parameters"
           request = MockHttpServletRequest.new('POST', "/echo")
-          request.should_receive(:setContent).with("Here's the content".to_java_bytes)
+          request.should_receive(:set_content).with("Here's the content".to_java_bytes)
           @fake_dispatcher_servlet.service(request) do |content|
-            content << "Here's the content"
+            request.content << "Here's the content"
           end
         end
       end
@@ -50,12 +49,12 @@ module Reigns
         
         it "routes put messages to #service" do
           @fake_dispatcher_servlet.should_receive(:service).with(a_mock_http_servlet_request_with(:getMethod =>'PUT', :getRequestURI =>"/a_uri"))
-          @fake_dispatcher_servlet.put("/a_uri")        
+          @fake_dispatcher_servlet.put("/a_uri") {}    
         end
         
         it "routes post messages to #service" do
           @fake_dispatcher_servlet.should_receive(:service).with(a_mock_http_servlet_request_with(:getMethod =>'POST', :getRequestURI =>"/a_uri"))
-          @fake_dispatcher_servlet.post("/a_uri")
+          @fake_dispatcher_servlet.post("/a_uri") {}
         end
         
         it "routes delete messages to #service" do

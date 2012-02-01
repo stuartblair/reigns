@@ -24,9 +24,12 @@ When /^I (GET|PUT|POST|DELETE) (\S*)$/ do |method, uri|
 end
 
 When /^I POST a body to (\S+) containing form data:\-$/ do |uri, table|
-  @last_response = send_request('POST', uri) do |content|
-      content << URI.encode_www_form(uri)
-      puts "Incidentally Stuart, here's what the body of the form looks like:'#{content}'"
+  @last_response = dispatcher.post(uri) do |request|
+    table.hashes.each do |hash| 
+      hash.each do |key, value|
+        request.content << "#{key}=#{value}"
+      end
+    end
   end
 end
 

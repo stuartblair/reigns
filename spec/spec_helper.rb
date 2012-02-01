@@ -51,3 +51,20 @@ def a_mock_http_servlet_request_with(expected_params)
   MockHttpServletRequestMatcher.new(expected_params)
 end
 
+class JavaByteArrayMatcher
+  def initialize(expected_byte_array)
+    @expected_byte_array = expected_byte_array
+  end
+  
+  def description
+    "a Java byte[] with values #{@expected_byte_array.to_a.join(',')}"
+  end
+  
+  def ==(actual)
+    @expected_byte_array.to_a == actual.to_a
+  end  
+end
+
+def a_java_byte_array_for(ruby_string)
+  JavaByteArrayMatcher.new(ruby_string.to_java_bytes)
+end

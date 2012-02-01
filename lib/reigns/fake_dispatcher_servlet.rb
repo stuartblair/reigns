@@ -10,7 +10,6 @@ module Reigns
   class FakeDispatcherServlet
     def service(request)
       response = MockHttpServletResponse.new
-      puts "Just about to submit a #{request.getMethod} to #{request.getRequestURI}"
       @servlet.service(request, response)
       response
     end
@@ -19,6 +18,14 @@ module Reigns
       @servlet.getWebApplicationContext()
     end
     
+    def post(uri, *args)
+      request = MockHttpServletRequest.new('POST', uri)
+      content = ""
+      yield(content)
+      request.set_content(content.to_java_bytes)
+      send(:service, request)
+    end
+
     private
     
     def initialize(context_location)
@@ -29,7 +36,7 @@ module Reigns
     end
 
     def method_missing(http_method, uri, *args, &block)
-      if (/get|put|post|delete/ =~ http_method.to_s.downcase)
+      if (/get|put|delete/ =~ http_method.to_s.downcase)
         request = MockHttpServletRequest.new(http_method.to_s.upcase, uri)
         send(:service, request)
       end
