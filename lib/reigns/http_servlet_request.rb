@@ -4,6 +4,8 @@ java_import 'org.springframework.mock.web.MockHttpServletRequest'
 
 module Reigns
   class HttpServletRequest
+    include Java::JavaxServletHttp::HttpServletRequest
+
     attr_accessor :content
     
     def set_content

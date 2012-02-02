@@ -8,9 +8,10 @@ java_import 'org.springframework.mock.web.MockHttpServletResponse'
 module Reigns
   class FakeDispatcherServlet
     def service(request)
-      puts "FakeDispatcherServlet: inside service and about to delegate to the servlet with #{request.to_s}"
       response = MockHttpServletResponse.new
+      puts "WOOOT! @servlet is actually a #{@servlet}"
       @servlet.service(request, response)
+      puts "STUART - THIS IS ODD. It's not getting here."
       response
     end
     
@@ -18,12 +19,30 @@ module Reigns
       @servlet.getWebApplicationContext()
     end
     
+    def get(uri, *args)
+      request = HttpServletRequest.new(:method => 'GET', :uri => uri)
+      service(request)
+    end
+
+    def put(uri, *args)
+      request = HttpServletRequest.new(:method => 'PUT', :uri => uri)
+      content = ""
+      yield(content)
+      request.set_content(content.to_java_bytes)
+      service(request)
+    end
+
     def post(uri, *args)
       request = HttpServletRequest.new(:method => 'POST', :uri => uri)
       content = ""
       yield(content)
       request.set_content(content.to_java_bytes)
-      send(:service, request)
+      service(request)
+    end
+
+    def delete(uri, *args)
+      request = HttpServletRequest.new(:method => 'DELETE', :uri => uri)
+      service(request)
     end
     
     private
@@ -33,13 +52,6 @@ module Reigns
       config = MockServletConfig.new("resources")
       config.add_init_parameter("contextConfigLocation", context_location)
       @servlet.init(config)
-    end
-    
-    def method_missing(http_method, uri, *args, &block)
-      if (/get|put|delete/ =~ http_method.to_s.downcase)
-        request = HttpServletRequest.new(:method => http_method.to_s.upcase, :uri => uri)
-        service(request)
-      end
     end
   end
 end
