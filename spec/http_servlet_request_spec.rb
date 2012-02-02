@@ -6,7 +6,7 @@ module Reigns
   describe HttpServletRequest do    
     before (:each) do
       @mock_http_servlet_request = MockHttpServletRequest.new
-      @http_servlet_request = HttpServletRequest.new(@mock_http_servlet_request)
+      @http_servlet_request = HttpServletRequest.new(:mock_http_servlet_request => @mock_http_servlet_request)
     end
     
     describe "set_content" do

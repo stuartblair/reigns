@@ -20,7 +20,8 @@ When /^I request the bean "([^"]*)"$/ do |bean_id|
 end
 
 When /^I (GET|PUT|POST|DELETE) (\S*)$/ do |method, uri|
-  @last_response = send_request(method, uri)
+  @last_response = dispatcher.send(method.downcase, uri) do |request|
+  end
 end
 
 When /^I POST a body to (\S+) containing form data:\-$/ do |uri, table|

@@ -1,6 +1,5 @@
 require 'spec_helper'
 java_import 'org.springframework.context.ApplicationContext'
-java_import 'org.springframework.mock.web.MockHttpServletRequest'
 
 module Reigns
   describe FakeDispatcherServlet do    
@@ -17,19 +16,19 @@ module Reigns
     describe "#service" do
       context "to a resource that exists" do        
         it "returns an HTTPResponse with a 200 code" do
-          @fake_dispatcher_servlet.service(MockHttpServletRequest.new('GET', "/hello")).get_status.should eql 200
+          @fake_dispatcher_servlet.service(HttpServletRequest.new(:method =>'GET', :uri => "/hello")).get_status.should eql 200
         end
       end
       
       context "to a resource that doesn't exist" do
         it "returns an HTTPResponse with a 404 code" do
-          @fake_dispatcher_servlet.service(MockHttpServletRequest.new('GET', "/goodbye")).get_status.should eql 404
+          @fake_dispatcher_servlet.service(HttpServletRequest.new(:method => 'GET', :uri => "/goodbye")).get_status.should eql 404
         end
       end
       
       context "when receiving form data" do
         it "sets the form data in the request content" do
-          request = MockHttpServletRequest.new('POST', "/echo")
+          request = HttpServletRequest.new(:method =>'POST', :uri => "/echo")
           request.should_receive(:set_content).with("Here's the content".to_java_bytes)
           @fake_dispatcher_servlet.service(request) do |content|
             request.content << "Here's the content"
@@ -39,7 +38,7 @@ module Reigns
       
       describe "message routing" do
         before(:each) do
-          @request = double(MockHttpServletRequest)
+          @request = double(HttpServletRequest)
         end
         
         it "routes get messages to #service" do
