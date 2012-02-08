@@ -10,7 +10,7 @@ RSpec::Matchers.define :implement do |interface|
   end
   
   match do |class_instance|
-    interface.java_class.assignable_from?(class_instance.java_class)
+    class_instance.class.include?(interface)
   end
   
   failure_message_for_should do |class_instance|
@@ -24,6 +24,31 @@ RSpec::Matchers.define :implement do |interface|
   description do
     "expected a class instance which implements the interface #{name_of(interface)}"
   end
+end
+
+class HttpRequestMatcher
+  def initialize(expected_params)
+    @expected_params = expected_params
+  end
+  
+  def description
+    "a HttpRequest with #{@expected_params}"
+  end
+
+  def ==(actual)
+    match = true
+    @expected_params.each do |key, value|
+      result = actual.send(key)
+      if (result != value)
+        match = false
+      end
+    end
+    match
+  end
+end
+
+def a_http_request_with(expected_params)
+  HttpRequestMatcher.new(expected_params)
 end
 
 class MockHttpServletRequestMatcher

@@ -7,6 +7,10 @@ module KnowsSpring
     @fake_dispatcher_servlet
   end
 
+  def web_client
+    @web_client ||= ::Reigns::WebClient.new(dispatcher)
+  end
+
   def send_request(method, uri)
     @fake_dispatcher_servlet.send(method.downcase, uri)
   end

@@ -19,30 +19,6 @@ When /^I request the bean "([^"]*)"$/ do |bean_id|
   @last_response = lookup_bean(bean_id)
 end
 
-When /^I (GET|PUT|POST|DELETE) (\S*)$/ do |method, uri|
-  @last_response = dispatcher.send(method.downcase, uri) do |request|
-  end
-end
-
-When /^I POST a body to (\S+) containing form data:\-$/ do |uri, table|
-  @last_response = dispatcher.post(uri) do |request|
-    table.hashes.each do |hash| 
-      hash.each do |key, value|
-        request.content << "#{key}=#{value}"
-      end
-    end
-  end
-end
-
-Then /^I receive an HTTPResponse with a (\d+) code$/ do |status_code|
-  @last_response.get_status.should eql status_code.to_i
-end
-
 Then /^I receive a non\-nil object from my application context$/ do
   @last_response.should_not be_nil
-end
-
-Then /^I receive a response containing fields:\-$/ do |table|
-  # table is a Cucumber::Ast::Table
-  pending # express the regexp above with the code you wish you had
 end
