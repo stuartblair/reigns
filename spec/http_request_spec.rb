@@ -13,7 +13,7 @@ module Reigns
         @http_request.should implement(HttpServletRequest)
       end
     end
-
+    
     describe "content" do
       it "exposes the content of the http request" do
         @http_request.content = "This is the content"

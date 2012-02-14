@@ -45,13 +45,10 @@
       <version>7.0.23</version>
     </dependency>
 
-    <!-- JSTL dependencies -->
+    <!-- Jackson JSON mapping dependency -->
     <dependency>
-      <groupId>javax.servlet</groupId>
-      <artifactId>jstl</artifactId>
-      <version>1.2</version>
+      <groupId>org.codehaus.jackson</groupId><artifactId>jackson-mapper-asl</artifactId><version>1.4.2</version>
     </dependency>
-    
   </dependencies>
   
   <build>

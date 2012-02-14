@@ -6,9 +6,8 @@
         <pathsSet class="linked-hash-set">
           <string>WEB-INF/mvc-dispatcher-servlet.xml</string>
           <string>WEB-INF/web.xml</string>
-          <string>WEB-INF/pages/hello.jsp</string>
-          <string>WEB-INF/pages/echo.jsp</string>
-          <string>WEB-INF/classes/com/_5values/dummy/controller/EchoController.class</string>
+          <string>WEB-INF/classes/com/_5values/dummy/model/Person.class</string>
+          <string>WEB-INF/classes/com/_5values/dummy/controller/PersonController.class</string>
           <string>WEB-INF/classes/com/_5values/dummy/controller/HelloController.class</string>
           <string>WEB-INF/lib/spring-core-3.0.5.RELEASE.jar</string>
           <string>WEB-INF/lib/spring-asm-3.0.5.RELEASE.jar</string>
@@ -23,7 +22,8 @@
           <string>WEB-INF/lib/spring-context-support-3.0.5.RELEASE.jar</string>
           <string>WEB-INF/lib/spring-test-3.0.5.RELEASE.jar</string>
           <string>WEB-INF/lib/tomcat-servlet-api-7.0.23.jar</string>
-          <string>WEB-INF/lib/jstl-1.2.jar</string>
+          <string>WEB-INF/lib/jackson-mapper-asl-1.4.2.jar</string>
+          <string>WEB-INF/lib/jackson-core-asl-1.4.2.jar</string>
         </pathsSet>
       </path-set>
     </entry>
@@ -91,15 +91,15 @@
     </org.apache.maven.plugin.war.util.DependencyInfo>
     <org.apache.maven.plugin.war.util.DependencyInfo>
       <dependency>
-        <groupId>javax.servlet</groupId>
-        <artifactId>jstl</artifactId>
-        <version>1.2</version>
+        <groupId>org.codehaus.jackson</groupId>
+        <artifactId>jackson-mapper-asl</artifactId>
+        <version>1.4.2</version>
         <type>jar</type>
         <scope>compile</scope>
         <exclusions/>
         <optional>false</optional>
       </dependency>
-      <targetFileName>jstl-1.2.jar</targetFileName>
+      <targetFileName>jackson-mapper-asl-1.4.2.jar</targetFileName>
     </org.apache.maven.plugin.war.util.DependencyInfo>
   </dependenciesInfo>
 </webapp-structure>

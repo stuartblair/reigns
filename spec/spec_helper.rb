@@ -1,6 +1,8 @@
 $:.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
 $:.unshift(File.join(File.dirname(__FILE__), '..', 'reference_apps'))
 require 'java'
+require 'rubygems'
+require 'json'
 require 'classpath'
 require 'reigns'
 
@@ -23,6 +25,28 @@ RSpec::Matchers.define :implement do |interface|
 
   description do
     "expected a class instance which implements the interface #{name_of(interface)}"
+  end
+end
+
+RSpec::Matchers.define :have_the_same_json_representation_as do |expected_json_representation|
+  def name_of(expected_json_representation)
+    expected_json_representation
+  end
+
+  match do |actual_json_representation|
+    JSON.parse(actual_json_representation) == JSON.parse(expected_json_representation)
+  end
+
+  failure_message_for_should do |actual_json_representation|
+    "expected the names and values of #{expected_json_representation} to match those in the actual json representation of #{actual_json_representation}"
+  end 
+
+  failure_message_for_should_not do |actual_json_representation|
+    "expected the names and values of #{expected_json_representation} to mismatch against those in the actual json representation of #{actual_json_representation}"
+  end 
+
+  description do
+    "expected a json representation corresponding to #{expected_json_representation}"
   end
 end
 

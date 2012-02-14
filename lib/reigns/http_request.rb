@@ -7,8 +7,6 @@ module Reigns
   class HttpRequest
     include Java::JavaxServletHttp::HttpServletRequest
     
-    attr_accessor :content
-    
     def initialize
       @content = ""
       @delegate = MockHttpServletRequest.new
@@ -33,6 +31,15 @@ module Reigns
 
     def uri
       @delegate.get_request_uri
+    end
+
+    def content=(content_string)
+      @content = content_string
+      @delegate.set_content(content_string.to_java_bytes)
+    end
+
+    def content
+      @content
     end
   end
 end

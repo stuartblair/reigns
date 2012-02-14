@@ -4,7 +4,7 @@ Scenario Outline: Request routing
 Given I host a spring mvc application with context location of "WEB-INF/mvc-dispatcher-servlet.xml"
 And the application will respond to <Operation> requests for the uri <URI>
 When I <Operation> <URI>
-Then I receive an HTTPResponse with a <Code> code
+Then I receive a HTTPResponse with a <Code> code
 
 Examples:
 | Operation | URI    | Code |
@@ -15,14 +15,8 @@ Examples:
 
 Scenario: Content is routed from requests through controllers to responses
 Given I host a spring mvc application with context location of "WEB-INF/mvc-dispatcher-servlet.xml"
-When I POST a body to /echo containing form data:-
-| name    | value             |
-| user    | Bob               |
-| address | 15 Osprey Heights |
-Then I receive a response containing fields:-
-| name    | value             |
-| user    | Bob               |
-| address | 15 Osprey Heights |
+When I POST a body to /person/echo containing JSON data: {"name":"Jack Jarvis","address":"15 Osprey Heights"}
+Then I receive a response containing JSON data: {"name":"Jack Jarvis","address":"15 Osprey Heights"}
 
 Scenario: Provide access to spring beans
 Given I host a spring mvc application with context location of "WEB-INF/mvc-dispatcher-servlet.xml"
