@@ -18,8 +18,3 @@ Given I host a spring mvc application with context location of "WEB-INF/mvc-disp
 When I POST a body to /person/echo containing JSON data: {"name":"Jack Jarvis","address":"15 Osprey Heights"}
 Then I receive a response containing JSON data: {"name":"Jack Jarvis","address":"15 Osprey Heights"}
 
-Scenario: Provide access to spring beans
-Given I host a spring mvc application with context location of "WEB-INF/mvc-dispatcher-servlet.xml"
-And the application contains a spring bean with the id "helloController" 
-When I request the bean "helloController"
-Then I receive a non-nil object from my application context
