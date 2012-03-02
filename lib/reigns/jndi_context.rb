@@ -13,5 +13,9 @@ module Reigns
     def lookup(name)
       @mappings[name]
     end
+
+    def close
+      #ignore, since we'd like to work from the same context for our tests
+    end
   end
 end

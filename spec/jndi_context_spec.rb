@@ -14,6 +14,10 @@ module Reigns
       it "should return the initial context configured with the mappings" do
         @jndi_context.lookup('jndi_name').should eql 'service'
       end
+
+      it "should respond to, but ignore close messages" do
+        @jndi_context.should respond_to(:close)
+      end
     end
   end
 end
